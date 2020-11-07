@@ -4,7 +4,7 @@ class MobidevController < ApplicationController
   end
 
   def api
-    client = Octokit::Client.new(:access_token => '25a9a57ea1514cbc021214230d26b2f7a8c1df73')
+    client = Octokit::Client.new(:access_token => '')
 
     result = []
 
