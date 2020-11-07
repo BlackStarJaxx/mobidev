@@ -1,0 +1,146 @@
+<div class="row" id="appendText">
+  <div class="col-md-4" >
+    <h2>Heading</h2>
+      <div class="media mb-3">
+        <div class="media-body">
+          <h5 class="mt-0">Watchers: </h5>
+        </div>
+      </div>
+    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+    <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+  </div>
+</div>
+<div class="row" id="repo">
+  <h2>Heading</h2>
+</div>
+
+<script type="text/javascript">
+    function open(id){
+        $("#appendText").hide();
+        console.log("open")
+        $.ajax({
+            url: '/api?repo=' + id,
+            method: 'GET',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (res) {
+                //data = res[2][1];
+                //let neededField = ['id','name','homepage','owner','description','watchers','forks'];
+                //let repoId = null;
+                // data.map(function(item){
+                //     fields = Object.values(item)
+                //     let content = ""
+                //     content += "<div class=\"col-md-4\">"
+                //     fields.map(function (field){
+                //
+                //         if(neededField.includes(field[0])){
+                //
+                //             value = field[1];
+                //             if(field[0] == "id"){
+                //                 repoId = value
+                //             }
+                //             if(field[0] == "name"){
+                //                 content+= "<h2><a href=\"#\" id=\"openRepo-"+repoId+"\">"+ value +"</a></h2>"
+                //             }
+                //             if(field[0] == "watchers"){
+                //                 content+= '<div class="media mb-2">' +
+                //                     '<div class="media-body"> ' +
+                //                     '<h6 class="mt-0">Watchers: '+ value +'</h6> ' +
+                //                     '</div> ' +
+                //                     '</div>'
+                //             }
+                //             if(field[0] == "forks"){
+                //                 content+= '<div class="media mb-2">' +
+                //                     '<div class="media-body"> ' +
+                //                     '<h6 class="mt-0">Forks: '+ value +'</h6> ' +
+                //                     '</div> ' +
+                //                     '</div>'
+                //             }
+                //             if(field[0] == "description"){
+                //                 content+= "<p>Description: "+ value +"</p>"
+                //             }
+                //             if(field[0] == "homepage"){
+                //                 content+= "<h4>Homepage: "+ value +"</h4>"
+                //             }
+                //             if(field[0] == "owner"){
+                //                 content+= "<h4>Owner: "+ value[0][1] +"</h4>"
+                //                 content+= "<h4>"+ value[5][1] +"</h4>"
+                //
+                //             }
+                //         }
+                //     })
+                //     content += "</div>"
+                //     $("#repo").append(content);
+                // })
+            },
+        })
+    }
+   $( document ).ready(function(){
+       $("#api_search").click(function(e){
+           e.preventDefault(e);
+           $("#repo").hide()
+
+           $("#appendText").html("");
+           $("#appendText").show();
+           let value = $("#search_value").val()
+           $.ajax({
+               url: '/api?search=' + value,
+               method: 'GET',
+               dataType: 'json',
+               contentType: 'application/json; charset=utf-8',
+               success: function (res) {
+                   data = res[2][1];
+                   let neededField = ['id','name','homepage','owner','description','watchers','forks'];
+                   let repoId = null;
+                   data.map(function(item){
+                       fields = Object.values(item)
+                       let content = ""
+                       content += "<div class=\"col-md-6\">"
+                       fields.map(function (field){
+
+                           if(neededField.includes(field[0])){
+
+                               value = field[1];
+                               if(field[0] == "id"){
+                                   repoId = value
+                               }
+                               if(field[0] == "name"){
+                                   content+= "<h2><button class=\"btn btn-link\" onclick='open(88420798)'>"+ value +"</button></h2>"
+                               }
+                               if(field[0] == "watchers"){
+                                   content+= '<div class="media mb-2">' +
+                                       '<div class="media-body"> ' +
+                                       '<h6 class="mt-0">Watchers: '+ value +'</h6> ' +
+                                       '</div> ' +
+                                       '</div>'
+                               }
+                               if(field[0] == "forks"){
+                                   content+= '<div class="media mb-2">' +
+                                       '<div class="media-body"> ' +
+                                       '<h6 class="mt-0">Forks: '+ value +'</h6> ' +
+                                       '</div> ' +
+                                       '</div>'
+                               }
+                               if(field[0] == "description"){
+                                   content+= "<p>Description: "+ value +"</p>"
+                               }
+                               if(field[0] == "homepage"){
+                                   content+= "<h4>Homepage: "+ value +"</h4>"
+                               }
+                               if(field[0] == "owner"){
+                                   content+= "<h4>Owner: "+ value[0][1] +"</h4>"
+                                   content+= "<h4>"+ value[5][1] +"</h4>"
+
+                               }
+                           }
+                       })
+                       content += "</div>"
+                       $("#appendText").append(content);
+                       })
+               },
+           })
+       });
+
+
+   });
+</script>
