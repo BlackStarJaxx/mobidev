@@ -4,7 +4,9 @@ class MobidevController < ApplicationController
   end
 
   def api
-    client = Octokit::Client.new(:access_token => 'a5a1fac89ff2c5d97a3fc98ab3e1f75962406df9')
+    client = Octokit::Client.new(:access_token => 'admin script token')
+    # github = Github.new basic_auth: 'login:password'
+    # github.auth.create scopes: ['repo'], note: 'admin script'
     result = []
 
     if params[:search]
